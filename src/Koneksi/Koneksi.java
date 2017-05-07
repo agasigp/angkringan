@@ -20,7 +20,7 @@ public class Koneksi {
     String username = "homestead";
     String password = "secret";
     String driver = "com.mysql.jdbc.Driver";
-    String url = "jdbc:mysql://192.168.10.10:33060/tokring";
+    String url = "jdbc:mysql://localhost:33060/tokring";
     
     public Connection getConnection() {
         try {

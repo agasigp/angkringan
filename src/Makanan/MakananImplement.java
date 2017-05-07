@@ -31,7 +31,7 @@ public class MakananImplement implements MakananInterface {
             query = "SELECT * FROM makanan";
             Statement statement = connection.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            List<Makanan> dataMakanan = new ArrayList<Makanan>();
+            List<Makanan> dataMakanan = new ArrayList<>();
             
             while (resultSet.next()) {                
                 Makanan makanan = new Makanan();
