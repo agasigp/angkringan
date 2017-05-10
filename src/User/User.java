@@ -12,10 +12,11 @@ package User;
 public class User {
     private int id;
     private String nama;
-    private String tipe;
-    private String keterangan;
-    private int harga;
-    private int status;
+    private String email;
+    private String username;
+    private String password;
+    private String createdAt;
+    private String updatedAt;
 
     public int getId() {
         return id;
@@ -33,35 +34,43 @@ public class User {
         this.nama = nama;
     }
 
-    public String getTipe() {
-        return tipe;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTipe(String tipe) {
-        this.tipe = tipe;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getKeterangan() {
-        return keterangan;
+    public String getUsername() {
+        return username;
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getHarga() {
-        return harga;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHarga(int harga) {
-        this.harga = harga;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getStatus() {
-        return status;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

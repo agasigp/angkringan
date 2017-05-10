@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tokring;
+package Transaksi;
 
 import Makanan.MakananView;
 import User.UserView;

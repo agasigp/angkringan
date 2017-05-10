@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,7 +57,25 @@ public class MakananImplement implements MakananInterface {
 
     @Override
     public void simpanMakanan(Makanan makanan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        connection.getConnection();
+        query = "INSERT INTO makanan VALUES(null,"
+                + "'" + makanan.getNama() + "',"
+                + "'" + makanan.getTipe() + "',"
+                + "'" + makanan.getStatus() + "',"
+                + "'" + makanan.getKeterangan() + "',"
+                + "'" + makanan.getHarga() + "')";
+        
+        
+        try {
+            Statement statement = connection.getConnection().createStatement();
+            int tambahMakanan  = statement.executeUpdate(query);
+            
+            if (tambahMakanan == 1) {
+                JOptionPane.showMessageDialog(null, "Tambah data berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            System.err.print("Gagal tambah kampus: " + e.getMessage());
+        }
     }
 
     @Override

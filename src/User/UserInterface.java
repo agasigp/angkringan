@@ -13,8 +13,8 @@ import java.util.List;
  * @author agasigp
  */
 public interface UserInterface {
-    List<User> tampilMakanan();
-    void simpanMakanan (User makanan);
-    void ubahMakanan (User makanan);
-    void hapusMakanan (User makanan);
+    List<User> tampilUser();
+    void simpanUser (User makanan);
+    void ubahUser (User makanan);
+    void hapusUser (User makanan);
 }

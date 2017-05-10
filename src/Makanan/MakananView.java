@@ -36,7 +36,7 @@ public class MakananView extends javax.swing.JFrame {
         tbHeader = new String[]{"ID", "NAMA", "TIPE", "STATUS", "KETERANGAN", "HARGA", "CREATED AT", "UPDATED AT"};
         tabelModel = new DefaultTableModel(null, tbHeader);
         tabelMakanan.setModel(tabelModel);
-        
+        tampilTipeMakanan();
         tampilMakanan();
     }
 
@@ -56,6 +56,22 @@ public class MakananView extends javax.swing.JFrame {
             tabelMakanan.addRowSelectionInterval(0, 0);
         }
     }
+    
+    private void tampilTipeMakanan() {
+        MakananTipeItem[] makananList = new MakananTipeItem[] {
+            new MakananTipeItem("MKN", "Makanan"),
+            new MakananTipeItem("MMN", "Minuman")
+        };
+//        cmbTipe.setModel(makananList);
+        
+        cmbTipe.addItem(new MakananTipeItem("MKN", "Makanan"));
+        cmbTipe.addItem(new MakananTipeItem("MMN", "Minuman"));
+    }
+    
+    private Object makeObj(final String item)  {
+     return new Object() {@Override
+        public String toString() { return item; } };
+   }
     
     private String getStatus(int status) {
         if (status == 1) {
@@ -101,6 +117,11 @@ public class MakananView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Kosongkan");
 
@@ -119,7 +140,11 @@ public class MakananView extends javax.swing.JFrame {
 
         btnHapus.setText("Hapus");
 
-        cmbTipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Lauk", "Minuman" }));
+        cmbTipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipeActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nama");
 
@@ -196,44 +221,24 @@ public class MakananView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MakananView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MakananView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MakananView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MakananView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        Makanan makanan = new Makanan();
+        String namaMakanan = txtNama.getText();
+//        String tipeMakanan = cmbTipe.get
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new MakananView().setVisible(true);
-        });
-    }
+    private void cmbTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipeActionPerformed
+        // TODO add your handling code here:
+//        System.out.println(cmbTipe.getModel().getSelectedItem().getKey());
+    }//GEN-LAST:event_cmbTipeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JComboBox<String> cmbTipe;
+    private javax.swing.JComboBox<MakananTipeItem> cmbTipe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
