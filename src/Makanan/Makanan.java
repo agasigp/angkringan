@@ -15,7 +15,6 @@ public class Makanan {
     private String tipe;
     private String keterangan;
     private int harga;
-    private int status;
 
     public int getId() {
         return id;
@@ -55,13 +54,5 @@ public class Makanan {
 
     public void setHarga(int harga) {
         this.harga = harga;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }

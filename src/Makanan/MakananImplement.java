@@ -41,7 +41,6 @@ public class MakananImplement implements MakananInterface {
                 makanan.setNama(resultSet.getString("nama"));
                 makanan.setTipe(resultSet.getString("tipe"));
                 makanan.setKeterangan(resultSet.getString("keterangan"));
-                makanan.setStatus(resultSet.getInt("status"));
                 makanan.setHarga(resultSet.getInt("harga"));
                 
                 dataMakanan.add(makanan);
@@ -80,7 +79,30 @@ public class MakananImplement implements MakananInterface {
 
     @Override
     public void ubahMakanan(Makanan makanan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        connection.getConnection();
+        
+        try {
+            String query = "UPDATE makanan "
+                    + "SET nama = ?,"
+                    + "tipe = ?,"
+                    + "harga = ?,"
+                    + "keterangan = ?"
+                    + "WHERE id = ?";
+            
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, makanan.getNama());
+            preparedStatement.setString(2, makanan.getTipe());
+            preparedStatement.setInt(3, makanan.getHarga());
+            preparedStatement.setString(4, makanan.getKeterangan());
+            preparedStatement.setInt(5, makanan.getId());
+            preparedStatement.execute();
+            
+            connection.getConnection().close();
+          
+            JOptionPane.showMessageDialog(null, "Ubah data makanan berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            System.out.println("Gagal ubah data user: " + e.getMessage());
+        }
     }
 
     @Override

@@ -32,7 +32,7 @@ public class MakananView extends javax.swing.JFrame {
     public MakananView() {
         initComponents();
         
-        tbHeader = new String[]{"ID", "NAMA", "TIPE", "STATUS", "KETERANGAN", "HARGA", "CREATED AT", "UPDATED AT"};
+        tbHeader = new String[]{"ID", "NAMA", "HARGA", "TIPE", "KETERANGAN", "CREATED AT", "UPDATED AT"};
         tabelModel = new DefaultTableModel(null, tbHeader);
         tabelMakanan.setModel(tabelModel);
         addMakananItem();
@@ -46,7 +46,7 @@ public class MakananView extends javax.swing.JFrame {
         tabelModel.setRowCount(0);
         
         for (Makanan dataMakanan : listMakanan) {
-            tabelModel.addRow(new Object[]{dataMakanan.getId(), dataMakanan.getNama(), getTipe(dataMakanan.getTipe()), getStatus(dataMakanan.getStatus()), dataMakanan.getKeterangan(), dataMakanan.getHarga()});
+            tabelModel.addRow(new Object[]{dataMakanan.getId(), dataMakanan.getNama(), dataMakanan.getHarga(), getTipe(dataMakanan.getTipe()), dataMakanan.getKeterangan() });
         }
         
         int ambilBaris = tabelMakanan.getRowCount();
@@ -62,14 +62,6 @@ public class MakananView extends javax.swing.JFrame {
         cmbTipe.addItem(new MakananTipeItem("LK", "Lauk"));
     }
     
-    private String getStatus(int status) {
-        if (status == 1) {
-            return "Ada";
-        } else {
-            return "Habis";
-        }
-    }
-    
     private String getTipe(String tipe) {
         switch (tipe) {
             case "MKN":
@@ -82,9 +74,22 @@ public class MakananView extends javax.swing.JFrame {
     }
     
     private void clearForm() {
+        txtId.setText("");
         txtNama.setText("");
         txtHarga.setText("");
         txtKeterangan.setText("");
+    }
+    
+    public final void tampilText() {
+        baris = tabelMakanan.getSelectedRow();
+        
+        if (baris >= 0) {
+            txtId.setText(tabelModel.getValueAt(baris, 0).toString());
+            txtNama.setText(tabelModel.getValueAt(baris, 1).toString());
+            txtHarga.setText(tabelModel.getValueAt(baris, 2).toString());
+            txtKeterangan.setText(tabelModel.getValueAt(baris, 4).toString());        
+        }
+ 
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,6 +113,9 @@ public class MakananView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtKeterangan = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        btnUbah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +139,11 @@ public class MakananView extends javax.swing.JFrame {
                 "Nama", "Harga", "Keterangan", "Dibuat", "Diupdate"
             }
         ));
+        tabelMakanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelMakananMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelMakanan);
 
         btnHapus.setText("Hapus");
@@ -149,6 +162,17 @@ public class MakananView extends javax.swing.JFrame {
 
         jLabel4.setText("Keterangan");
 
+        txtId.setEditable(false);
+
+        jLabel5.setText("Id");
+
+        btnUbah.setText("Ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,11 +186,20 @@ public class MakananView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSimpan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHapus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnClear))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNama)
@@ -174,20 +207,18 @@ public class MakananView extends javax.swing.JFrame {
                                     .addComponent(txtKeterangan)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnSimpan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnHapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnClear)
-                                .addGap(82, 82, 82)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtId))))
                         .addGap(504, 504, 504))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,9 +238,10 @@ public class MakananView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
                     .addComponent(btnClear)
-                    .addComponent(btnHapus))
+                    .addComponent(btnHapus)
+                    .addComponent(btnUbah))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -253,19 +285,62 @@ public class MakananView extends javax.swing.JFrame {
 //        System.out.println(cmbTipe.getModel().getSelectedItem().);
     }//GEN-LAST:event_cmbTipeActionPerformed
 
+    private void tabelMakananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMakananMouseClicked
+        // TODO add your handling code here:
+        tampilText();
+        
+    }//GEN-LAST:event_tabelMakananMouseClicked
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+        // TODO add your handling code here:
+        Makanan makanan = new Makanan();
+        MakananTipeItem tipeMakananModel = (MakananTipeItem) cmbTipe.getSelectedItem();
+        
+        int idMakanan = Integer.parseInt(txtId.getText());
+        String namaMakanan = txtNama.getText();
+        String tipeMakanan = tipeMakananModel.getKey();
+        int hargaMakanan = Integer.parseInt(txtHarga.getText());
+        String keteranganMakanan = txtKeterangan.getText();
+        
+        makanan.setId(idMakanan);
+        makanan.setNama(namaMakanan);
+        makanan.setTipe(tipeMakanan);
+        makanan.setHarga(hargaMakanan);
+        makanan.setKeterangan(keteranganMakanan);
+        
+        if (updSQLFlag == false) {
+            if (txtNama.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Nama harus diisi!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                txtNama.grabFocus();
+            } else if (txtHarga.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Harga harus diisi!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                txtHarga.grabFocus();
+            } else {
+                makananInterface.ubahMakanan(makanan);
+//                JOptionPane.showMessageDialog(null, "", "Info", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        tampilMakanan();
+        clearForm();
+    }//GEN-LAST:event_btnUbahActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton btnUbah;
     private javax.swing.JComboBox cmbTipe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelMakanan;
     private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtKeterangan;
     private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables
