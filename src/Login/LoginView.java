@@ -6,7 +6,6 @@
 package Login;
 
 import Transaksi.Main;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,12 +100,12 @@ public class LoginView extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         
-        if (Login.login(username, password)) {
+//        if (Login.login(username, password)) {
             new Main().setVisible(true);
             setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
-        }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

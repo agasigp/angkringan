@@ -6,8 +6,8 @@
 package Makanan;
 
 import FactoryDAO.FactoryDAO;
-import Koneksi.Koneksi;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,11 +32,10 @@ public class MakananView extends javax.swing.JFrame {
     public MakananView() {
         initComponents();
         
-        Koneksi koneksi = new Koneksi();
         tbHeader = new String[]{"ID", "NAMA", "TIPE", "STATUS", "KETERANGAN", "HARGA", "CREATED AT", "UPDATED AT"};
         tabelModel = new DefaultTableModel(null, tbHeader);
         tabelMakanan.setModel(tabelModel);
-        tampilTipeMakanan();
+        addMakananItem();
         tampilMakanan();
     }
 
@@ -57,21 +56,11 @@ public class MakananView extends javax.swing.JFrame {
         }
     }
     
-    private void tampilTipeMakanan() {
-        MakananTipeItem[] makananList = new MakananTipeItem[] {
-            new MakananTipeItem("MKN", "Makanan"),
-            new MakananTipeItem("MMN", "Minuman")
-        };
-//        cmbTipe.setModel(makananList);
-        
+    private void addMakananItem() {
         cmbTipe.addItem(new MakananTipeItem("MKN", "Makanan"));
         cmbTipe.addItem(new MakananTipeItem("MMN", "Minuman"));
+        cmbTipe.addItem(new MakananTipeItem("LK", "Lauk"));
     }
-    
-    private Object makeObj(final String item)  {
-     return new Object() {@Override
-        public String toString() { return item; } };
-   }
     
     private String getStatus(int status) {
         if (status == 1) {
@@ -91,6 +80,12 @@ public class MakananView extends javax.swing.JFrame {
                 return "Lauk";
         }
     }
+    
+    private void clearForm() {
+        txtNama.setText("");
+        txtHarga.setText("");
+        txtKeterangan.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,7 +100,7 @@ public class MakananView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMakanan = new javax.swing.JTable();
         btnHapus = new javax.swing.JButton();
-        cmbTipe = new javax.swing.JComboBox<>();
+        cmbTipe = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         txtNama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -224,13 +219,38 @@ public class MakananView extends javax.swing.JFrame {
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
         Makanan makanan = new Makanan();
+        MakananTipeItem tipeMakananModel = (MakananTipeItem) cmbTipe.getSelectedItem();
+        
         String namaMakanan = txtNama.getText();
-//        String tipeMakanan = cmbTipe.get
+        String tipeMakanan = tipeMakananModel.getKey();
+        int hargaMakanan = Integer.parseInt(txtHarga.getText());
+        String keteranganMakanan = txtKeterangan.getText();
+        
+        makanan.setNama(namaMakanan);
+        makanan.setTipe(tipeMakanan);
+        makanan.setHarga(hargaMakanan);
+        makanan.setKeterangan(keteranganMakanan);
+        
+        if (updSQLFlag == false) {
+            if (txtNama.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Nama harus diisi!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                txtNama.grabFocus();
+            } else if (txtHarga.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Harga harus diisi!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                txtHarga.grabFocus();
+            } else {
+                makananInterface.simpanMakanan(makanan);
+//                JOptionPane.showMessageDialog(null, "", "Info", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        tampilMakanan();
+        clearForm();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void cmbTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipeActionPerformed
         // TODO add your handling code here:
-//        System.out.println(cmbTipe.getModel().getSelectedItem().getKey());
+//        System.out.println(cmbTipe.getModel().getSelectedItem().);
     }//GEN-LAST:event_cmbTipeActionPerformed
 
 
@@ -238,7 +258,7 @@ public class MakananView extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JComboBox<MakananTipeItem> cmbTipe;
+    private javax.swing.JComboBox cmbTipe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

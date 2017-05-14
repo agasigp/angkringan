@@ -6,6 +6,7 @@
 package Makanan;
 
 import Koneksi.Koneksi;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,23 +59,22 @@ public class MakananImplement implements MakananInterface {
     @Override
     public void simpanMakanan(Makanan makanan) {
         connection.getConnection();
-        query = "INSERT INTO makanan VALUES(null,"
-                + "'" + makanan.getNama() + "',"
-                + "'" + makanan.getTipe() + "',"
-                + "'" + makanan.getStatus() + "',"
-                + "'" + makanan.getKeterangan() + "',"
-                + "'" + makanan.getHarga() + "')";
-        
         
         try {
-            Statement statement = connection.getConnection().createStatement();
-            int tambahMakanan  = statement.executeUpdate(query);
+            query = "INSERT INTO makanan (nama, tipe, harga, keterangan) VALUES (?, ?, ?, ?)";
             
-            if (tambahMakanan == 1) {
-                JOptionPane.showMessageDialog(null, "Tambah data berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            }
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, makanan.getNama());
+            preparedStatement.setString(2, makanan.getTipe());
+            preparedStatement.setInt(3, makanan.getHarga());
+            preparedStatement.setString(4, makanan.getKeterangan());
+            preparedStatement.execute();
+            connection.getConnection().close();
+          
+            JOptionPane.showMessageDialog(null, "Tambah data makanan berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            System.err.print("Gagal tambah kampus: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Tambah data makanan gagal!", "Informasi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
