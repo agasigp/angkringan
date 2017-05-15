@@ -54,6 +54,39 @@ public class MakananImplement implements MakananInterface {
         
         return null;
     }
+    
+    @Override
+    public List<Makanan> tampilMakanan(String tipe) {
+        connection.getConnection();
+        
+        try {
+            query = "SELECT * FROM makanan where tipe = ?";
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, tipe);
+            preparedStatement.execute();
+            
+            ResultSet resultSet = preparedStatement.getResultSet();
+            List<Makanan> dataMakanan = new ArrayList<>();
+            
+            while (resultSet.next()) {                
+                Makanan makanan = new Makanan();
+                makanan.setId(resultSet.getInt("id"));
+                makanan.setNama(resultSet.getString("nama"));
+                makanan.setTipe(resultSet.getString("tipe"));
+                makanan.setKeterangan(resultSet.getString("keterangan"));
+                makanan.setHarga(resultSet.getInt("harga"));
+                
+                dataMakanan.add(makanan);
+            }
+            
+            resultSet.close();
+            return dataMakanan;
+        } catch (SQLException e) {
+            System.out.println("Data gagal ditampilkan : " + e.getMessage());
+        }
+        
+        return null;
+    }
 
     @Override
     public void simpanMakanan(Makanan makanan) {
@@ -109,5 +142,4 @@ public class MakananImplement implements MakananInterface {
     public void hapusMakanan(Makanan makanan) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

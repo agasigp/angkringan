@@ -5,7 +5,7 @@
  */
 package Login;
 
-import Transaksi.Main;
+import Transaksi.TransaksiView;
 
 /**
  *
@@ -101,7 +101,7 @@ public class LoginView extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         
 //        if (Login.login(username, password)) {
-            new Main().setVisible(true);
+            new TransaksiView().setVisible(true);
             setVisible(false);
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface MakananInterface {
     List<Makanan> tampilMakanan();
+    List<Makanan> tampilMakanan(String tipe);
     void simpanMakanan (Makanan makanan);
     void ubahMakanan (Makanan makanan);
     void hapusMakanan (Makanan makanan);

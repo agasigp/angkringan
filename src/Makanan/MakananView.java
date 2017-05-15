@@ -148,11 +148,7 @@ public class MakananView extends javax.swing.JFrame {
 
         btnHapus.setText("Hapus");
 
-        cmbTipe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTipeActionPerformed(evt);
-            }
-        });
+        cmbTipe.setMaximumRowCount(100);
 
         jLabel1.setText("Nama");
 
@@ -279,11 +275,6 @@ public class MakananView extends javax.swing.JFrame {
         tampilMakanan();
         clearForm();
     }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void cmbTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipeActionPerformed
-        // TODO add your handling code here:
-//        System.out.println(cmbTipe.getModel().getSelectedItem().);
-    }//GEN-LAST:event_cmbTipeActionPerformed
 
     private void tabelMakananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMakananMouseClicked
         // TODO add your handling code here:

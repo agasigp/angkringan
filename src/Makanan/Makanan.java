@@ -15,6 +15,15 @@ public class Makanan {
     private String tipe;
     private String keterangan;
     private int harga;
+    
+    public Makanan() {
+        
+    }
+    
+    public Makanan(int id, String nama) {
+        this.id = id;
+        this.nama = nama;
+    }
 
     public int getId() {
         return id;
@@ -54,5 +63,11 @@ public class Makanan {
 
     public void setHarga(int harga) {
         this.harga = harga;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return this.nama;
     }
 }
