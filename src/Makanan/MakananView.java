@@ -40,8 +40,7 @@ public class MakananView extends javax.swing.JFrame {
     }
 
     private void tampilMakanan() {
-        MakananImplement makananImplement = new MakananImplement();
-        listMakanan = makananImplement.tampilMakanan();
+        listMakanan = makananInterface.tampilMakanan();
         tabelModel = (DefaultTableModel) tabelMakanan.getModel();
         tabelModel.setRowCount(0);
         

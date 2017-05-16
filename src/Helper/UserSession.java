@@ -10,13 +10,22 @@ package Helper;
  * @author agasigp
  */
 public class UserSession {
-    private static String userLogin;
+    private static String username;
+    private static String userId;
  
-    public static void setUserLogin(String userLogin) {
-        UserSession.userLogin = userLogin;
+    public static void setUsername(String username) {
+        UserSession.username = username;
     }
 
-    public static String getUserLogin() {
-        return userLogin;
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(String UserId) {
+        UserSession.userId = UserId;
     }
 }

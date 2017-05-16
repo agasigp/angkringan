@@ -5,14 +5,17 @@
  */
 package Login;
 
+import FactoryDAO.FactoryDAO;
 import Transaksi.TransaksiView;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author agasigp
  */
 public class LoginView extends javax.swing.JFrame {
-
+    FactoryDAO factoryDAO = new FactoryDAO();
+    LoginInterface loginInterface = factoryDAO.getLoginDAO();
     /**
      * Creates new form Login
      */
@@ -100,12 +103,12 @@ public class LoginView extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         
-//        if (Login.login(username, password)) {
+        if (loginInterface.login(username, password)) {
             new TransaksiView().setVisible(true);
             setVisible(false);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
-//        }
+        } else {
+            JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

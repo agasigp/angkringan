@@ -38,8 +38,7 @@ public class UserView extends javax.swing.JFrame {
     }
     
     private void tampilUser() {
-        UserImplement userImplement = new UserImplement();
-        listUser = userImplement.tampilUser();
+        listUser = userInterface.tampilUser();
         tabelModel = (DefaultTableModel) tabelUser.getModel();
         
         tabelModel.setRowCount(0);
