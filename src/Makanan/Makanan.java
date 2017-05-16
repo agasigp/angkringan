@@ -20,9 +20,10 @@ public class Makanan {
         
     }
     
-    public Makanan(int id, String nama) {
+    public Makanan(int id, String nama, int harga) {
         this.id = id;
         this.nama = nama;
+        this.harga = harga;
     }
 
     public int getId() {

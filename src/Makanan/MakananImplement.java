@@ -106,7 +106,6 @@ public class MakananImplement implements MakananInterface {
             JOptionPane.showMessageDialog(null, "Tambah data makanan berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Tambah data makanan gagal!", "Informasi", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
 
