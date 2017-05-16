@@ -5,6 +5,7 @@
  */
 package Transaksi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Transaksi {
     private int id;
     private int userId;
     private String noTransaksi;
-    private List<TransaksiDetail> transaksiDetail;
+    private List<TransaksiDetail> listTransaksiDetail = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -41,11 +42,11 @@ public class Transaksi {
         this.noTransaksi = noTransaksi;
     }
 
-    public List<TransaksiDetail> getTransaksiDetail() {
-        return transaksiDetail;
+    public List<TransaksiDetail> getListTransaksiDetail() {
+        return listTransaksiDetail;
     }
 
     public void addTransaksiDetail(TransaksiDetail transaksiDetail) {
-        this.transaksiDetail.add(transaksiDetail);
+        this.listTransaksiDetail.add(transaksiDetail);
     }
 }

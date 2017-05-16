@@ -5,6 +5,7 @@
  */
 package Transaksi;
 
+import FactoryDAO.FactoryDAO;
 import Makanan.Makanan;
 import Makanan.MakananImplement;
 import Makanan.MakananView;
@@ -21,10 +22,14 @@ import javax.swing.text.NumberFormatter;
  */
 public class TransaksiView extends javax.swing.JFrame {
     private List<Makanan> listMakanan;
-    private List<TransaksiDetail> listDetailTransaksi;
+    private ArrayList<TransaksiDetail> listDetailTransaksi;
     private DefaultTableModel tabelModel;
     private String[] tbHeader;
     private int total = 0;
+    
+    FactoryDAO factoryDao = new FactoryDAO();
+    TransaksiInterface transaksiInterface = factoryDao.getTransaksiDAO();
+    private boolean updSQLFlag;
             
     /**
      * Creates new form Main
@@ -67,6 +72,17 @@ public class TransaksiView extends javax.swing.JFrame {
                     break;
             }
         }
+    }
+    
+    private void clearForm() {
+        initTable();
+        txtTotal.setText("0");
+        txtBayar.setText("0");
+        txtKembali.setText("0");
+        
+        spnMakanan.setValue(0);
+        spnMinuman.setValue(0);
+        spnLauk.setValue(0);
     }
 
     /**
@@ -148,6 +164,11 @@ public class TransaksiView extends javax.swing.JFrame {
         jLabel4.setText("Daftar Beli");
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnTambahMinuman.setText("Tambah");
         btnTambahMinuman.addActionListener(new java.awt.event.ActionListener() {
@@ -528,9 +549,29 @@ public class TransaksiView extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        initTable();
-        txtTotal.setText("0");
+        clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        Transaksi transaksi = new Transaksi();
+        transaksi.setNoTransaksi(txtNoTransaksi.getText());
+        transaksi.setUserId(1);
+        
+        int count = tabelModel.getRowCount();
+        
+        for (int i = 0; i < count; i++) {
+            TransaksiDetail transaksiDetail = new TransaksiDetail();
+            transaksiDetail.setMakananId((Integer) tabelModel.getValueAt(i, 0));
+            transaksiDetail.setJumlah((Integer) tabelModel.getValueAt(i, 4));
+            transaksi.addTransaksiDetail(transaksiDetail);
+        }
+        
+        if (updSQLFlag == false) {
+            transaksiInterface.simpanTransaksi(transaksi);
+            clearForm();
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,8 @@ import Koneksi.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +19,8 @@ import java.sql.SQLException;
 public class TransaksiImplement implements TransaksiInterface {
     Koneksi connection = new Koneksi();
     
-    private String query;
+    private String queryInsertTransaksi;
+    private String queryInsertDetailTransaksi;
     
     ResultSet rs;
     
@@ -26,40 +29,34 @@ public class TransaksiImplement implements TransaksiInterface {
         String generatedColumns[] = { "ID" };
         
         try {
-            query = "INSERT INTO transaksi(user_id, no_transaksi) VALUES (?, ?)";
+            queryInsertTransaksi = "INSERT INTO transaksi(user_id, no_transaksi) VALUES (?, ?)";
             
-            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query, generatedColumns);
-            preparedStatement.setString(1, transaksi.getNoTransaksi());
-            preparedStatement.setInt(2, transaksi.getUserId());
-            preparedStatement.execute();
+            PreparedStatement preparedStatement1 = connection.getConnection().prepareStatement(queryInsertTransaksi, generatedColumns);
+            preparedStatement1.setString(2, transaksi.getNoTransaksi());
+            preparedStatement1.setInt(1, transaksi.getUserId());
+            preparedStatement1.execute();
             
-            rs = preparedStatement.getGeneratedKeys();
+            rs = preparedStatement1.getGeneratedKeys();
             
             if (rs.next()) {
                 int idTransaksi = rs.getInt(1);
-                simpanDetailTransaksi(idTransaksi, transaksi);
+                queryInsertDetailTransaksi = "INSERT INTO transaksi_detail(transaksi_id, makanan_id, jumlah) VALUES (?, ?, ?)";
+                List<TransaksiDetail> listTransaksiDetail = transaksi.getListTransaksiDetail();
+                
+                for (TransaksiDetail transaksiDetail : listTransaksiDetail) {
+                    PreparedStatement preparedStatement2 = connection.getConnection().prepareStatement(queryInsertDetailTransaksi);
+                    preparedStatement2.setInt(1, idTransaksi);
+                    preparedStatement2.setInt(2, transaksiDetail.getMakananId());
+                    preparedStatement2.setInt(3, transaksiDetail.getJumlah());
+                    preparedStatement2.execute();
+                }
             }
             
             connection.getConnection().close();
-        } catch (SQLException e) {
-            System.out.println("Gagal simpan data : " + e.getMessage());
-        }
-    }
-    
-    private void simpanDetailTransaksi(int transaksiId, Transaksi transaksi) {
-        try {
-            query = "INSERT INTO transaksi_detail(transaksi_id, makanan_id, jumlah) VALUES (?, ?, ?)";
             
-            for (TransaksiDetail transaksiDetail : transaksi.getTransaksiDetail()) {
-                PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
-                preparedStatement.setInt(1, transaksiId);
-                preparedStatement.setInt(2, transaksiDetail.getMakananId());
-                preparedStatement.setInt(3, transaksiDetail.getJumlah());
-                preparedStatement.execute();
-            }
+            JOptionPane.showMessageDialog(null, "Tambah data transaksi berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            System.out.println("Gagal simpan data : " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Tambah data transaksi gagal!", "Informasi", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
 }

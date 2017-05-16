@@ -7,6 +7,8 @@ package FactoryDAO;
 
 import Makanan.MakananImplement;
 import Makanan.MakananInterface;
+import Transaksi.TransaksiImplement;
+import Transaksi.TransaksiInterface;
 import User.UserImplement;
 import User.UserInterface;
 
@@ -17,6 +19,7 @@ import User.UserInterface;
 public class FactoryDAO {
     private MakananInterface makananInterface;
     private UserInterface userInterface;
+    private TransaksiInterface transaksiInterface;
     
     public MakananInterface getMakananDAO() {
         if (makananInterface == null) {
@@ -32,5 +35,13 @@ public class FactoryDAO {
         }
         
         return userInterface;
+    }
+    
+    public TransaksiInterface getTransaksiDAO() {
+        if (transaksiInterface == null) {
+            transaksiInterface = new TransaksiImplement();
+        }
+        
+        return transaksiInterface;
     }
 }
