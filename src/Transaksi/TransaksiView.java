@@ -11,7 +11,9 @@ import Makanan.MakananImplement;
 import Makanan.MakananView;
 import User.UserView;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
@@ -36,12 +38,27 @@ public class TransaksiView extends javax.swing.JFrame {
      */
     public TransaksiView() {
         initComponents();
+        initNoTransaksi();
         
         addMakananItem("MKN");
         addMakananItem("MMN");
         addMakananItem("LK");
         
         initTable();
+        
+        lblTanggal.setText(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
+    }
+    
+    private void initNoTransaksi() {
+        TransaksiImplement transaksi = new TransaksiImplement();
+        
+        if (transaksi.countTransaksi() < 9) {
+            txtNoTransaksi.setText("00" + Integer.toString(transaksi.countTransaksi() + 1));
+        } else if (transaksi.countTransaksi() <= 99) {
+            txtNoTransaksi.setText("0" + Integer.toString(transaksi.countTransaksi() + 1));
+        } else {
+            txtNoTransaksi.setText(Integer.toString(transaksi.countTransaksi() + 1));
+        }
     }
     
     private void initTable() {
@@ -209,6 +226,8 @@ public class TransaksiView extends javax.swing.JFrame {
         });
 
         jLabel8.setText("No Transaksi");
+
+        txtNoTransaksi.setEditable(false);
 
         lblTanggal.setText("Tanggal");
 
@@ -570,6 +589,7 @@ public class TransaksiView extends javax.swing.JFrame {
         if (updSQLFlag == false) {
             transaksiInterface.simpanTransaksi(transaksi);
             clearForm();
+            initNoTransaksi();
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
 

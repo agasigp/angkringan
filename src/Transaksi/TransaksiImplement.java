@@ -9,6 +9,8 @@ import Koneksi.Koneksi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -58,5 +60,30 @@ public class TransaksiImplement implements TransaksiInterface {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Tambah data transaksi gagal!", "Informasi", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public int countTransaksi() {
+        String query = "SELECT COUNT(id) AS count FROM transaksi WHERE DATE(created_at) = ?";
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        int count = 0;
+        
+        try {
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, date);
+            preparedStatement.execute();
+            
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            while (resultSet.next()) {                
+                count = resultSet.getInt("count");
+            }
+
+            connection.getConnection().close();
+        } catch (SQLException ex) {
+            
+        }
+        
+        return count;
     }
 }

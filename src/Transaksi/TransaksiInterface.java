@@ -11,4 +11,5 @@ package Transaksi;
  */
 public interface TransaksiInterface {
     void simpanTransaksi(Transaksi transaksi);
+    int countTransaksi();
 }
