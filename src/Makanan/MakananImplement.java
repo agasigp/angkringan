@@ -159,24 +159,27 @@ public class MakananImplement implements MakananInterface {
         connection.getConnection();
         
         try {
-            query = "SELECT * FROM makanan where id = ?";
+            query = "SELECT COUNT(id) AS count FROM transaksi_detail where makanan_id = ?";
             
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             
+            int count = 0;
+            
             ResultSet resultSet = preparedStatement.getResultSet();
             
-            if (resultSet.next()) {
-                resultSet.close();
-                return true;
-            } else {
-                resultSet.close();
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+            
+            if (count > 0) {
+                return false;
             }
         } catch (SQLException e) {
             System.out.println("Data gagal ditampilkan : " + e.getMessage());
         }
         
-        return false;
+        return true;
     }
 }

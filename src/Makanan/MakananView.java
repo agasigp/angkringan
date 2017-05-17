@@ -322,17 +322,15 @@ public class MakananView extends javax.swing.JFrame {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        baris = tabelMakanan.getSelectedRow();
+        Makanan makanan = new Makanan();
+        makanan.setId(Integer.parseInt(txtId.getText()));
         
-        if (baris >= 0) {
-            if (makananInterface.cekMakanan((Integer) tabelModel.getValueAt(baris, 0))) {
-                Makanan makanan = new Makanan();
-                makanan.setId((Integer) tabelModel.getValueAt(baris, 0));
-                
-                makananInterface.hapusMakanan(makanan);
-            } else {
-                JOptionPane.showMessageDialog(null, "Makanan tidak dapat dihapus!", "Peringatan", JOptionPane.ERROR_MESSAGE);
-            }
+        if (makananInterface.cekMakanan(makanan.getId())) {
+            makananInterface.hapusMakanan(makanan);
+            clearForm();
+            tampilMakanan();
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal hapus makanan!", "Peringatan", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnHapusActionPerformed
 
