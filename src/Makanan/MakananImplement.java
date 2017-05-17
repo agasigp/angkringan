@@ -114,7 +114,7 @@ public class MakananImplement implements MakananInterface {
         connection.getConnection();
         
         try {
-            String query = "UPDATE makanan "
+            query = "UPDATE makanan "
                     + "SET nama = ?,"
                     + "tipe = ?,"
                     + "harga = ?,"
@@ -139,6 +139,44 @@ public class MakananImplement implements MakananInterface {
 
     @Override
     public void hapusMakanan(Makanan makanan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        connection.getConnection();
+        
+        try {
+            query = "DELETE FROM makanan WHERE id = ?";
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, makanan.getId());
+            preparedStatement.execute();
+            connection.getConnection().close();
+          
+            JOptionPane.showMessageDialog(null, "Hapus data makanan berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            System.out.println("Gagal hapus data makanan: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean cekMakanan(int id) {
+        connection.getConnection();
+        
+        try {
+            query = "SELECT * FROM makanan where id = ?";
+            
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            if (resultSet.next()) {
+                resultSet.close();
+                return true;
+            } else {
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Data gagal ditampilkan : " + e.getMessage());
+        }
+        
+        return false;
     }
 }

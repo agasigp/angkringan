@@ -562,7 +562,7 @@ public class TransaksiView extends javax.swing.JFrame {
     private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
         // TODO add your handling code here:
         int bayar = Integer.parseInt(txtBayar.getText());
-        int total = Integer.parseInt(txtTotal.getText());
+        total = Integer.parseInt(txtTotal.getText());
         int kembali = bayar - total;
 
         txtKembali.setText(Integer.toString(kembali));
@@ -582,6 +582,7 @@ public class TransaksiView extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        total = 0;
         clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
@@ -605,6 +606,8 @@ public class TransaksiView extends javax.swing.JFrame {
             clearForm();
             initNoTransaksi();
         }
+        
+        total = 0;
     }//GEN-LAST:event_btnSimpanActionPerformed
 
 

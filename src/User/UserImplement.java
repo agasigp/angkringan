@@ -125,21 +125,27 @@ public class UserImplement implements UserInterface {
         connection.getConnection();
         
         try {
-            query = "SELECT * FROM user where id = ?";
+            query = "SELECT COUNT(id) as count FROM transaksi where user_id = ?";
             
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
             
+            int count = 0;
+            
             ResultSet resultSet = preparedStatement.getResultSet();
             
-            resultSet.close();
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
             
-            return resultSet.next();
+            if (count > 0) {
+                return false;
+            }
         } catch (SQLException e) {
             System.out.println("Data gagal ditampilkan : " + e.getMessage());
         }
         
-        return false;
+        return true;
     }
 }

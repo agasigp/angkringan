@@ -66,6 +66,14 @@ public class UserView extends javax.swing.JFrame {
         }
  
     }
+    
+    private void clearForm() {
+        txtId.setText("");
+        txtNama.setText("");
+        txtEmail.setText("");
+        txtUsername.setText("");
+        txtPassword.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -245,6 +253,7 @@ public class UserView extends javax.swing.JFrame {
             }
         }
         
+        clearForm();
         tampilUser();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
@@ -281,26 +290,20 @@ public class UserView extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        txtId.setText("");
-        txtNama.setText("");
-        txtEmail.setText("");
-        txtUsername.setText("");
-        txtPassword.setText("");
+        clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        baris = tabelUser.getSelectedRow();
+        User user = new User();
+        user.setId(Integer.parseInt(txtId.getText()));
         
-        if (baris >= 0) {
-            if (userInterface.cekUser((Integer) tabelModel.getValueAt(baris, 0))) {
-                User user = new User();
-                user.setId((Integer) tabelModel.getValueAt(baris, 0));
-                
-                userInterface.hapusUser(user);
-            } else {
-                JOptionPane.showMessageDialog(null, "User tidak dapat dihapus!", "Peringatan", JOptionPane.ERROR_MESSAGE);
-            }
+        if (userInterface.cekUser(user.getId())) {
+            userInterface.hapusUser(user);
+            clearForm();
+            tampilUser();
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal hapus user!", "Peringatan", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnHapusActionPerformed
 

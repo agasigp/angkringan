@@ -34,8 +34,8 @@ public class TransaksiImplement implements TransaksiInterface {
             queryInsertTransaksi = "INSERT INTO transaksi(user_id, no_transaksi) VALUES (?, ?)";
             
             PreparedStatement preparedStatement1 = connection.getConnection().prepareStatement(queryInsertTransaksi, generatedColumns);
-            preparedStatement1.setString(2, transaksi.getNoTransaksi());
             preparedStatement1.setInt(1, transaksi.getUserId());
+            preparedStatement1.setString(2, transaksi.getNoTransaksi());
             preparedStatement1.execute();
             
             rs = preparedStatement1.getGeneratedKeys();

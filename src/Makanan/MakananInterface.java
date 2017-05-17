@@ -14,6 +14,7 @@ import java.util.List;
 public interface MakananInterface {
     List<Makanan> tampilMakanan();
     List<Makanan> tampilMakanan(String tipe);
+    boolean cekMakanan(int id);
     void simpanMakanan (Makanan makanan);
     void ubahMakanan (Makanan makanan);
     void hapusMakanan (Makanan makanan);

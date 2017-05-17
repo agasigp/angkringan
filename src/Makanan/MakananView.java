@@ -146,6 +146,11 @@ public class MakananView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelMakanan);
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         cmbTipe.setMaximumRowCount(100);
 
@@ -314,6 +319,22 @@ public class MakananView extends javax.swing.JFrame {
         tampilMakanan();
         clearForm();
     }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        baris = tabelMakanan.getSelectedRow();
+        
+        if (baris >= 0) {
+            if (makananInterface.cekMakanan((Integer) tabelModel.getValueAt(baris, 0))) {
+                Makanan makanan = new Makanan();
+                makanan.setId((Integer) tabelModel.getValueAt(baris, 0));
+                
+                makananInterface.hapusMakanan(makanan);
+            } else {
+                JOptionPane.showMessageDialog(null, "Makanan tidak dapat dihapus!", "Peringatan", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
