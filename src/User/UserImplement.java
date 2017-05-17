@@ -60,7 +60,7 @@ public class UserImplement implements UserInterface {
         connection.getConnection();
         
         try {
-            String query = "INSERT INTO `tokring`.`user` (`nama`, `email`, `username`, `password`) VALUES (?, ?, ?, md5(?))";
+            query = "INSERT INTO `tokring`.`user` (`nama`, `email`, `username`, `password`) VALUES (?, ?, ?, md5(?))";
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setString(1, user.getNama());
             preparedStatement.setString(2, user.getEmail());
@@ -80,20 +80,21 @@ public class UserImplement implements UserInterface {
         connection.getConnection();
         
         try {
-            String query = "UPDATE user "
+            query = "UPDATE user "
                     + "SET nama = ?,"
                     + "email = ?,"
                     + "username = ?,"
                     + "password = md5(?) "
                     + "WHERE id = ?";
+            
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setString(1, user.getNama());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getUsername());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setInt(5, user.getId());
-            System.out.println(preparedStatement.toString());
             preparedStatement.execute();
+            
             connection.getConnection().close();
           
             JOptionPane.showMessageDialog(null, "Ubah data user berhasil!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
@@ -107,7 +108,7 @@ public class UserImplement implements UserInterface {
         connection.getConnection();
         
         try {
-            String query = "DELETE FROM user WHERE id = ?";
+            query = "DELETE FROM user WHERE id = ?";
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, user.getId());
             preparedStatement.execute();
@@ -118,5 +119,27 @@ public class UserImplement implements UserInterface {
             System.out.println("Gagal hapus data user: " + e.getMessage());
         }
     }
-    
+
+    @Override
+    public boolean cekUser(int id) {
+        connection.getConnection();
+        
+        try {
+            query = "SELECT * FROM user where id = ?";
+            
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+            
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            resultSet.close();
+            
+            return resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("Data gagal ditampilkan : " + e.getMessage());
+        }
+        
+        return false;
+    }
 }

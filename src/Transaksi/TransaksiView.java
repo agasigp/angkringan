@@ -7,6 +7,7 @@ package Transaksi;
 
 import FactoryDAO.FactoryDAO;
 import Helper.UserSession;
+import Login.LoginView;
 import Makanan.Makanan;
 import Makanan.MakananImplement;
 import Makanan.MakananView;
@@ -469,7 +470,8 @@ public class TransaksiView extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
+        new LoginView().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -587,7 +589,7 @@ public class TransaksiView extends javax.swing.JFrame {
         // TODO add your handling code here:
         Transaksi transaksi = new Transaksi();
         transaksi.setNoTransaksi(txtNoTransaksi.getText());
-        transaksi.setUserId(1);
+        transaksi.setUserId(Integer.parseInt(UserSession.getUserId()));
         
         int count = tabelModel.getRowCount();
         

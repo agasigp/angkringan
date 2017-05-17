@@ -105,7 +105,7 @@ public class LoginView extends javax.swing.JFrame {
         
         if (loginInterface.login(username, password)) {
             new TransaksiView().setVisible(true);
-            setVisible(false);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
         }

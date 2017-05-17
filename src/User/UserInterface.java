@@ -5,7 +5,6 @@
  */
 package User;
 
-import Makanan.*;
 import java.util.List;
 
 /**
@@ -14,6 +13,7 @@ import java.util.List;
  */
 public interface UserInterface {
     List<User> tampilUser();
+    boolean cekUser(int id);
     void simpanUser (User makanan);
     void ubahUser (User makanan);
     void hapusUser (User makanan);
