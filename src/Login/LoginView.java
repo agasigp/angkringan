@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
  * @author agasigp
  */
 public class LoginView extends javax.swing.JFrame {
+    // Membuat objek factoryDAO
     FactoryDAO factoryDAO = new FactoryDAO();
+    // Mendapatkan objek untuk mendap
     LoginInterface loginInterface = factoryDAO.getLoginDAO();
     /**
      * Creates new form Login
@@ -100,13 +102,18 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        // Ambil usename & password dari textbox
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         
+        // Jika berhasil login, maka tampilkan tampilan transaksi
         if (loginInterface.login(username, password)) {
+            // Bikin objek baru berupa tampilan transaksi
             new TransaksiView().setVisible(true);
+            // Hapus tampilan login dari memori
             dispose();
         } else {
+            // Tampilkan pesan jika tidak berhasil login
             JOptionPane.showMessageDialog(null, "Username/password anda salah!", "Peringatan", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -35,11 +35,10 @@
                           <Group type="102" attributes="0">
                               <Component id="btnSimpan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnUbah" pref="90" max="32767" attributes="0"/>
+                              <Component id="btnUbah" pref="86" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnHapus" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnClear" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -52,13 +51,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtNama" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtHarga" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtKeterangan" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtId" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="cmbTipe" min="-2" pref="170" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="txtId" max="32767" attributes="0"/>
+                                  <Component id="txtHarga" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -99,13 +98,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSimpan" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnHapus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnUbah" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="246" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -113,16 +111,11 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnSimpan">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Simpan"/>
+        <Property name="text" type="java.lang.String" value="Tambah"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnClear">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Kosongkan"/>
-      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -186,8 +179,6 @@
         <Property name="text" type="java.lang.String" value="Harga"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtHarga">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tipe"/>
@@ -217,6 +208,12 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUbahActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="txtHarga">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(formatter)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="NumberFormat format = NumberFormat.getInstance();&#xa;format.setGroupingUsed(false);&#xa;NumberFormatter formatter = new NumberFormatter(format);&#xa;formatter.setValueClass(Integer.class);&#xa;formatter.setMinimum(0);&#xa;formatter.setMaximum(Integer.MAX_VALUE);&#xa;formatter.setAllowsInvalid(false);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

@@ -7,6 +7,8 @@ package Transaksi;
 
 import FactoryDAO.FactoryDAO;
 import Helper.UserSession;
+import Laporan.LaporanBulanan;
+import Laporan.LaporanHarian;
 import Login.LoginView;
 import Makanan.Makanan;
 import Makanan.MakananImplement;
@@ -65,7 +67,7 @@ public class TransaksiView extends javax.swing.JFrame {
     }
     
     private void initTable() {
-        tbHeader = new String[]{"ITEM ID", "NAMA", "HARGA", "HARGA", "JUMLAH"};
+        tbHeader = new String[]{"ITEM ID", "NAMA", "HARGA", "JUMLAH", "TOTAL"};
         tabelModel = new DefaultTableModel(null, tbHeader);
         tblTransaksi.setModel(tabelModel);
     }
@@ -155,7 +157,8 @@ public class TransaksiView extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuLaporanHarian = new javax.swing.JMenuItem();
+        menuLaporanBulanan = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -275,8 +278,21 @@ public class TransaksiView extends javax.swing.JFrame {
 
         jMenu2.setText("Menu");
 
-        jMenuItem1.setText("Laporan");
-        jMenu2.add(jMenuItem1);
+        menuLaporanHarian.setText("Laporan Harian");
+        menuLaporanHarian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLaporanHarianActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuLaporanHarian);
+
+        menuLaporanBulanan.setText("Laporan Bulanan");
+        menuLaporanBulanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLaporanBulananActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuLaporanBulanan);
 
         jMenuItem2.setText("Logout");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -597,7 +613,8 @@ public class TransaksiView extends javax.swing.JFrame {
         for (int i = 0; i < count; i++) {
             TransaksiDetail transaksiDetail = new TransaksiDetail();
             transaksiDetail.setMakananId((Integer) tabelModel.getValueAt(i, 0));
-            transaksiDetail.setJumlah((Integer) tabelModel.getValueAt(i, 4));
+            transaksiDetail.setJumlah((Integer) tabelModel.getValueAt(i, 3));
+            transaksiDetail.setTotal((Integer) tabelModel.getValueAt(i, 4));
             transaksi.addTransaksiDetail(transaksiDetail);
         }
         
@@ -609,6 +626,18 @@ public class TransaksiView extends javax.swing.JFrame {
         
         total = 0;
     }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void menuLaporanHarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLaporanHarianActionPerformed
+        // TODO add your handling code here:
+        LaporanHarian laporanHarian = new LaporanHarian();
+        laporanHarian.cetak();
+    }//GEN-LAST:event_menuLaporanHarianActionPerformed
+
+    private void menuLaporanBulananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLaporanBulananActionPerformed
+        // TODO add your handling code here:
+        LaporanBulanan laporanBulanan = new LaporanBulanan();
+        laporanBulanan.cetak();
+    }//GEN-LAST:event_menuLaporanBulananActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -637,13 +666,14 @@ public class TransaksiView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTanggal;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JMenuItem menuLaporanBulanan;
+    private javax.swing.JMenuItem menuLaporanHarian;
     private javax.swing.JSpinner spnLauk;
     private javax.swing.JSpinner spnMakanan;
     private javax.swing.JSpinner spnMinuman;

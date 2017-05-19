@@ -12,6 +12,7 @@ package Transaksi;
 public class TransaksiDetail {
     private int makananId;
     private int jumlah;
+    private int total;
 
     public int getMakananId() {
         return makananId;
@@ -27,6 +28,14 @@ public class TransaksiDetail {
 
     public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
     
 }

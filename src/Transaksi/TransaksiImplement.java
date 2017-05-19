@@ -42,7 +42,7 @@ public class TransaksiImplement implements TransaksiInterface {
             
             if (rs.next()) {
                 int idTransaksi = rs.getInt(1);
-                queryInsertDetailTransaksi = "INSERT INTO transaksi_detail(transaksi_id, makanan_id, jumlah) VALUES (?, ?, ?)";
+                queryInsertDetailTransaksi = "INSERT INTO transaksi_detail(transaksi_id, makanan_id, jumlah, total) VALUES (?, ?, ?, ?)";
                 List<TransaksiDetail> listTransaksiDetail = transaksi.getListTransaksiDetail();
                 
                 for (TransaksiDetail transaksiDetail : listTransaksiDetail) {
@@ -50,6 +50,7 @@ public class TransaksiImplement implements TransaksiInterface {
                     preparedStatement2.setInt(1, idTransaksi);
                     preparedStatement2.setInt(2, transaksiDetail.getMakananId());
                     preparedStatement2.setInt(3, transaksiDetail.getJumlah());
+                    preparedStatement2.setInt(4, transaksiDetail.getTotal());
                     preparedStatement2.execute();
                 }
             }

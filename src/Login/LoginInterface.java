@@ -10,5 +10,6 @@ package Login;
  * @author agasigp
  */
 public interface LoginInterface {
+    // abstract method untuk login dengan kembalian berupa boolean (true/false)
     boolean login(String username, String password);
 }

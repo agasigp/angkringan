@@ -17,10 +17,10 @@ import java.sql.SQLException;
 public class Koneksi {
     public Connection connection;
     
-    String username = "homestead";
-    String password = "secret";
+    String username = "root";
+    String password = "root";
     String driver = "com.mysql.jdbc.Driver";
-    String url = "jdbc:mysql://localhost:33060/tokring";
+    String url = "jdbc:mysql://localhost:3306/angkringan";
     
     public Connection getConnection() {
         try {

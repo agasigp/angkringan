@@ -19,20 +19,28 @@ import javax.swing.JOptionPane;
  * @author agasigp
  */
 public class UserImplement implements UserInterface {
+    // Membuat objek koneksi
     Koneksi connection = new Koneksi();
     
+    // Variabel untuk menyimpan query
     private String query;
     
+    // Variabel untuk menyimpan hasil query berupa result
     ResultSet rs;
 
     @Override
     public List<User> tampilUser() {
+        // Koneksi ke database
         connection.getConnection();
         
         try {
+            // Query untuk menampilkan user
             query = "SELECT * FROM user";
+            // Membuat statement untuk untuk melakukan proses query
             Statement statement = connection.getConnection().createStatement();
+            // Menampung hasil query kedalam resultset
             ResultSet resultSet = statement.executeQuery(query);
+            // Membuat arraylist untuk menampung hasil data query
             List<User> dataUser = new ArrayList<>();
             
             while (resultSet.next()) {                
@@ -47,6 +55,7 @@ public class UserImplement implements UserInterface {
             }
             
             resultSet.close();
+            
             return dataUser;
         } catch (SQLException e) {
             System.out.println("Data gagal ditampilkan : " + e.getMessage());
@@ -60,7 +69,7 @@ public class UserImplement implements UserInterface {
         connection.getConnection();
         
         try {
-            query = "INSERT INTO `tokring`.`user` (`nama`, `email`, `username`, `password`) VALUES (?, ?, ?, md5(?))";
+            query = "INSERT INTO user (`nama`, `email`, `username`, `password`) VALUES (?, ?, ?, md5(?))";
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setString(1, user.getNama());
             preparedStatement.setString(2, user.getEmail());

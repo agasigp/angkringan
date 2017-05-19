@@ -6,9 +6,11 @@
 package Makanan;
 
 import FactoryDAO.FactoryDAO;
+import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -100,7 +102,6 @@ public class MakananView extends javax.swing.JFrame {
     private void initComponents() {
 
         btnSimpan = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMakanan = new javax.swing.JTable();
         btnHapus = new javax.swing.JButton();
@@ -108,24 +109,29 @@ public class MakananView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtHarga = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtKeterangan = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnUbah = new javax.swing.JButton();
+        NumberFormat format = NumberFormat.getInstance();
+        format.setGroupingUsed(false);
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(0);
+        formatter.setMaximum(Integer.MAX_VALUE);
+        formatter.setAllowsInvalid(false);
+        txtHarga = new javax.swing.JFormattedTextField(formatter);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnSimpan.setText("Simpan");
+        btnSimpan.setText("Tambah");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
             }
         });
-
-        btnClear.setText("Kosongkan");
 
         tabelMakanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,11 +194,10 @@ public class MakananView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSimpan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                .addComponent(btnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnHapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClear))
+                                .addGap(121, 121, 121))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -203,12 +208,12 @@ public class MakananView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNama)
-                                    .addComponent(txtHarga)
                                     .addComponent(txtKeterangan)
+                                    .addComponent(txtId)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txtId))))
+                                    .addComponent(txtHarga))))
                         .addGap(504, 504, 504))))
         );
         layout.setVerticalGroup(
@@ -237,12 +242,11 @@ public class MakananView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
-                    .addComponent(btnClear)
                     .addComponent(btnHapus)
                     .addComponent(btnUbah))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
@@ -336,7 +340,6 @@ public class MakananView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUbah;
@@ -348,7 +351,7 @@ public class MakananView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelMakanan;
-    private javax.swing.JTextField txtHarga;
+    private javax.swing.JFormattedTextField txtHarga;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtKeterangan;
     private javax.swing.JTextField txtNama;
